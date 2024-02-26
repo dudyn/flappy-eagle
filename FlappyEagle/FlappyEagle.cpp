@@ -150,18 +150,18 @@ int main()
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
     ALLEGRO_TIMER* timer = al_create_timer(1.0 / FPS);
     ALLEGRO_TIMER* birdtimer = al_create_timer(1.0 / birdFPS);
-    ALLEGRO_BITMAP* kac = al_load_bitmap("kac.jpg");
-    ALLEGRO_BITMAP* bird = al_load_bitmap("flappymove2.png");
-    ALLEGRO_BITMAP* fallingbird = al_load_bitmap("flappyspadanie2.png");
-    ALLEGRO_BITMAP* blok_dolny = al_load_bitmap("blokdolny.jpg");
-    ALLEGRO_BITMAP* blok_gorny = al_load_bitmap("blokgorny.jpg");
+    // ALLEGRO_BITMAP* kac = al_load_bitmap("kac.jpg");
+    ALLEGRO_BITMAP* bird = al_load_bitmap("flappy_move.png");
+    ALLEGRO_BITMAP* fallingbird = al_load_bitmap("flappy_fall.png");
+    ALLEGRO_BITMAP* blok_dolny = al_load_bitmap("upper_block.jpg");
+    ALLEGRO_BITMAP* blok_gorny = al_load_bitmap("lower_block.jpg");
     ALLEGRO_BITMAP* floor = al_load_bitmap("floor.jpg");
-    ALLEGRO_BITMAP* background = al_load_bitmap("tlo.jpg");
-    ALLEGRO_SAMPLE* wing = al_load_sample("wing.wav");
-    ALLEGRO_SAMPLE* hit = al_load_sample("hit.wav");
-    ALLEGRO_SAMPLE* point = al_load_sample("point.wav");
-    ALLEGRO_SAMPLE* klik = al_load_sample("klik.wav");
-    ALLEGRO_SAMPLE* przesuniecie = al_load_sample("przesuniecie.wav");
+    ALLEGRO_BITMAP* background = al_load_bitmap("background.jpg");
+    ALLEGRO_SAMPLE* wing = al_load_sample("jump_voice.wav");
+    ALLEGRO_SAMPLE* hit = al_load_sample("death_voice.wav");
+    ALLEGRO_SAMPLE* point = al_load_sample("point_voice.wav");
+    ALLEGRO_SAMPLE* klik = al_load_sample("button_click.wav");
+    ALLEGRO_SAMPLE* przesuniecie = al_load_sample("button_slide.wav");
     ALLEGRO_COLOR white = al_map_rgb(255, 255, 255);
     ALLEGRO_COLOR grey = al_map_rgb(125, 125, 125);
     ALLEGRO_COLOR button_color_start = grey;
@@ -1383,7 +1383,7 @@ int main()
 
                 if (gotowy_zapis)
                 {
-                    file.open("zapis.txt", ios::out | ios::app);
+                    file.open("points_save.txt", ios::out | ios::app);
                     file << name << endl;
                     file << score << endl;
                     file.close();
@@ -1410,7 +1410,7 @@ int main()
     al_destroy_event_queue(event_queue);
     al_destroy_timer(timer);
     al_destroy_timer(birdtimer);
-    al_destroy_bitmap(kac);
+    // al_destroy_bitmap(kac);
     al_destroy_bitmap(fallingbird);
     al_destroy_bitmap(bird);
     al_destroy_bitmap(blok_dolny);
@@ -1685,7 +1685,7 @@ void RestartGame(Block blocks[], int size, int& x, int& y, bool& live, int& scor
 // czytanie danych z pliku i wypelnianie tablicy top10
 void FileReading(string& max_names, int& max_points, string names[], int points[], fstream& file)
 {
-    file.open("zapis.txt", ios::in);
+    file.open("points_save.txt", ios::in);
     if (file.good() == false)
     {
         cout << "Cos poszlo nie tak!";
@@ -1799,7 +1799,7 @@ void FileReadingLogowanie()
 {
     string nazwa;
     string haslo;
-    file.open("konta.txt", ios::in);
+    file.open("accounts.txt", ios::in);
     if (file.good() == false)
     {
         cout << "Cos poszlo nie tak!";
@@ -1835,7 +1835,7 @@ void FileSavingAccount()
 {
     int suma = 0;
 
-    file.open("konta.txt", ios::in);
+    file.open("accounts.txt", ios::in);
     if (file.good() == false)
     {
         cout << "Cos poszlo nie tak!";
@@ -1872,7 +1872,7 @@ void FileSavingAccount()
 
         if (gotowarejestracja == 1)
         {
-            file.open("konta.txt", ios::out | ios::app);
+            file.open("accounts.txt", ios::out | ios::app);
             file << namechange << endl;
             file << haslochange << endl;
             file.close();
@@ -1893,7 +1893,7 @@ void GwiazdkowanieHasla()
 // wczytywanie statystyk z pliku
 void FileReadingStatystyki()
 {
-    file.open("zapis.txt", ios::in);
+    file.open("points_save.txt", ios::in);
     if (file.good() == false)
     {
         cout << "Cos poszlo nie tak!";
